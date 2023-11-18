@@ -65,34 +65,8 @@ def print_it(job, eff_date, pol, row, last_row):
 
 
 def gen_acs_macro():
-    # global job, eff_date, pol
     wb1 = openpyxl.load_workbook("jobs.xlsx")
-
     wb = wb1.active
-
-    # for row in wb.iter_rows():
-    #     for cell in row:
-    #         print(cell.value, end=" ")
-    #     print("\n")
-
-    # for row in range(wb.max_row):
-    #     for col in wb.iter_cols(1, wb.max_column):
-    #         print(col[row].value, end=' ')
-    #     print()
-
-    # for row in range(1, wb.max_row + 1):
-    #     for col in range(1, wb.max_column + 1):
-    #         cell = wb.cell(row, col)
-    #         if col == 1:
-    #             job = cell
-    #             print(cell.value, end=' ')
-    #         elif col == 2:
-    #             eff_date = str(cell.value)[5:7] + '/' + str(cell.value)[8:10] + '/' + str(cell.value)[0:4]
-    #             print(eff_date, end=' ')
-    #         else:
-    #             pol = cell
-    #             print(cell.value, end=' ')
-    #     print()
 
     # ha script header
     print(
