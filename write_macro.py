@@ -1,7 +1,7 @@
 import openpyxl
 
 
-def print_it(job, eff_date, pol, row, last_row):
+def write_it(outf, job, eff_date, pol, row, last_row):
     entry_screen_flag = "true" if row == 1 else "false"
     exit_screen_flag = "true" if last_row == 1 else "false"
     str_screen_num = (row - 1) * 3
@@ -61,7 +61,8 @@ def print_it(job, eff_date, pol, row, last_row):
         </nextscreens>
     </screen>
     """
-    print(ha_script)
+    # print(ha_script)
+    outf.write(ha_script)
 
 
 def gen_acs_macro():
@@ -69,24 +70,28 @@ def gen_acs_macro():
     wb = wb1.active
 
     # ha script header
-    print(
-        '<HAScript name="macro1" description="" timeout="60000" pausetime="300" promptall="true" blockinput="true" author="vpc" creationdate="Nov 15, 2023 8:21:30 AM" supressclearevents="false" usevars="false" ignorepauseforenhancedtn="true" delayifnotenhancedtn="0" ignorepausetimeforenhancedtn="true" continueontimeout="false">')
+    outf = open('macro1.mac', 'w')
+    hdr1 = '<HAScript name="macro1" description="" timeout="60000" pausetime="300" promptall="true" blockinput="true" author="vpc" creationdate="Nov 15, 2023 8:21:30 AM" supressclearevents="false" usevars="false" ignorepauseforenhancedtn="true" delayifnotenhancedtn="0" ignorepausetimeforenhancedtn="true" continueontimeout="false">'
+    outf.write(hdr1)
+    outf.close()
+
+    outf = open('macro1.mac', 'a')
     for row in range(1, wb.max_row + 1):
         for col in range(1, wb.max_column + 1):
             cell = wb.cell(row, col)
             if col == 1:
                 job = cell.value
             elif col == 2:
-                # eff_date = str(cell.value)[5:7] + '/' + str(cell.value)[8:10] + '/' + str(cell.value)[0:4]
-                eff_date = cell.value
+                eff_date = str(cell.value)[5:7] + '/' + str(cell.value)[8:10] + '/' + str(cell.value)[0:4]
+                # eff_date = cell.value
             elif col == 3:
                 pol = cell.value
-        print_it(job, eff_date, pol, row, row == wb.max_row)
+        write_it(outf, job, eff_date, pol, row, row == wb.max_row)
 
     # ha script footer
-    print('</HAScript>')
+    # print('</HAScript>')
+    outf.write('</HAScript>')
+    outf.close()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    gen_acs_macro()
+gen_acs_macro()
