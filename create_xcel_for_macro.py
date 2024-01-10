@@ -3,9 +3,9 @@ from datetime import date
 import openpyxl
 from dateutil.relativedelta import relativedelta
 
-polnum = '12345678'
-str_date = date(2023, 1, 1)
-end_date = date(2025, 12, 1)
+polnum = '08500819'
+str_date = date(2020, 12, 28)
+end_date = date(2032, 12, 28)
 curr_date = str_date
 
 wb1 = openpyxl.load_workbook("jobs.xlsx")
